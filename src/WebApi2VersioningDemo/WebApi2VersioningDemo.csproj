@@ -75,7 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -83,6 +84,20 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebApi2VersioningDemo.Domain\WebApi2VersioningDemo.Domain.csproj">
+      <Project>{7020b1fa-cc84-42c4-9cc0-6c7e39a8f154}</Project>
+      <Name>WebApi2VersioningDemo.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApi2VersioningDemo.Model\WebApi2VersioningDemo.Model.csproj">
+      <Project>{ad97d961-11bc-463f-85af-7510c6ab3cf1}</Project>
+      <Name>WebApi2VersioningDemo.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebApi2VersioningDemo.Repository\WebApi2VersioningDemo.Repository.csproj">
+      <Project>{46b7c087-c8d6-4633-ab26-c794961cc6b1}</Project>
+      <Name>WebApi2VersioningDemo.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
