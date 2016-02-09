@@ -6,11 +6,11 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    [RoutePrefix("api")]
+    [RoutePrefix("api/Employees")]
     public class EmployeeController : ApiController
     {
         [HttpGet]
-        [Route("Employees")]
+        [Route("")]
         public List<EmployeeModel> GetEmployees()
         {
             var employees = EmployeeRepository.GetEmployees();
@@ -26,7 +26,7 @@
         }
 
         [HttpGet]
-        [Route("Employee", Name = "EmployeeByName")]
+        [Route("", Name = "EmployeeByName")]
         public EmployeeModel GetEmployee(string firstName, string lastName)
         {
             var e = EmployeeRepository.GetEmployee(firstName, lastName);
