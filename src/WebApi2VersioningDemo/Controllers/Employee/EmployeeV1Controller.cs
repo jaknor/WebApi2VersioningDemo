@@ -6,11 +6,11 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    [RoutePrefix("api/Employees")]
-    public class EmployeeController : ApiController
+    [RoutePrefix("api")]
+    public class EmployeeV1Controller : ApiController
     {
         [HttpGet]
-        [Route("")]
+        [Route("Employees")]
         public List<EmployeeModel> GetEmployees()
         {
             var employees = EmployeeRepository.GetEmployees();
@@ -21,12 +21,12 @@
                     LastName = e.LastName,
                     Salary = e.Salary,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByName", new { name = e.DepartmentName }) })
+                    DepartmentLink = Url.Link("DepartNameByNameV1", new { name = e.DepartmentName }) })
                     .ToList();
         }
 
         [HttpGet]
-        [Route("", Name = "EmployeeByName")]
+        [Route("Employees", Name = "EmployeeByNameV1")]
         public EmployeeModel GetEmployee(string firstName, string lastName)
         {
             var e = EmployeeRepository.GetEmployee(firstName, lastName);
@@ -37,7 +37,7 @@
                     LastName = e.LastName,
                     Salary = e.Salary,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByName", new { name = e.DepartmentName })
+                    DepartmentLink = Url.Link("DepartNameByNameV1", new { name = e.DepartmentName })
                 };
         }
     }
