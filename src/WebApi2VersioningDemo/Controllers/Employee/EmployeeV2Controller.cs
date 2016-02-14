@@ -5,12 +5,15 @@
     using Repository;
     using System.Collections.Generic;
     using System.Linq;
+    using Versioning;
 
     [RoutePrefix("api/Employees")]
-    public class EmployeeController : ApiController
+    public class EmployeeV2Controller : ApiController
     {
+        const int Version = 2;
+
         [HttpGet]
-        [Route("")]
+        [VersionedRoute("", Version)]
         public List<EmployeeModel> GetEmployees()
         {
             var employees = EmployeeRepository.GetEmployees();
@@ -19,14 +22,13 @@
                 e => new EmployeeModel {
                     FirstName = e.FirstName,
                     LastName = e.LastName,
-                    Salary = e.Salary,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByName", new { name = e.DepartmentName }) })
+                    DepartmentLink = Url.Link("DepartNameByNameV1", new { name = e.DepartmentName }) })
                     .ToList();
         }
 
         [HttpGet]
-        [Route("", Name = "EmployeeByName")]
+        [VersionedRoute("", Version, Name = "EmployeeByNameV2")]
         public EmployeeModel GetEmployee(string firstName, string lastName)
         {
             var e = EmployeeRepository.GetEmployee(firstName, lastName);
@@ -35,9 +37,8 @@
                 {
                     FirstName = e.FirstName,
                     LastName = e.LastName,
-                    Salary = e.Salary,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByName", new { name = e.DepartmentName })
+                    DepartmentLink = Url.Link("DepartNameByNameV1", new { name = e.DepartmentName })
                 };
         }
     }

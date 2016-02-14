@@ -5,12 +5,13 @@
     using Repository;
     using System.Collections.Generic;
     using System.Linq;
+    using Versioning;
 
     [RoutePrefix("api/Departments")]
     public class DepartmentsController : ApiController
     {
         [HttpGet]
-        [Route("")]
+        [VersionedRoute("", 1)]
         public List<DepartmentModel> GetDepartments()
         {
             var departments = DepartmentRepository.Departments;
@@ -21,13 +22,13 @@
                     Name = d.Name,
                     Employees = d.Employees.Select(e => new DepartmentEmployee
                     {
-                        EmployeeLink = Url.Link("EmployeeByName", new { firstName = e.FirstName, lastName = e.LastName })
+                        EmployeeLink = Url.Link("EmployeeByNameV1", new { firstName = e.FirstName, lastName = e.LastName })
                     }).ToList()
                 }).ToList();
         }
 
         [HttpGet]
-        [Route("{name}", Name = "DepartNameByName")]
+        [VersionedRoute("{name}", 1, Name = "DepartNameByNameV1")]
         public DepartmentModel GetDepartment(string name)
         {
             var d = DepartmentRepository.GetDepartment(name);
@@ -37,13 +38,13 @@
                 Name = d.Name,
                 Employees = d.Employees.Select(e => new DepartmentEmployee
                 {
-                    EmployeeLink = Url.Link("EmployeeByName", new { firstName = e.FirstName, lastName = e.LastName })
+                    EmployeeLink = Url.Link("EmployeeByNameV1", new { firstName = e.FirstName, lastName = e.LastName })
                 }).ToList()
             };
         }
 
         [HttpGet]
-        [Route("{departmentName}/employees")]
+        [VersionedRoute("{departmentName}/employees", 1)]
         public List<EmployeeModel> GetEmployees(string departmentName)
         {
             var employees = DepartmentRepository.GetEmployees(departmentName);
@@ -55,7 +56,7 @@
                     LastName = e.LastName,
                     Salary = e.Salary,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByName", new { name = e.DepartmentName })
+                    DepartmentLink = Url.Link("DepartNameByNameV1", new { name = e.DepartmentName })
                 })
                     .ToList();
         }
