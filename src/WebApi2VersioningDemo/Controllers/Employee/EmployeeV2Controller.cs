@@ -7,14 +7,15 @@
     using System.Linq;
     using Versioning;
 
-    [RoutePrefix("api/Employees")]
+    [RoutePrefix("api")]
     public class EmployeeV2Controller : ApiController
     {
         const int Version = 2;
         const int MinDate = 20160201;
 
         [HttpGet]
-        [VersionedRoute("", Version, MinDate)]
+        [Route("v2/Employees")]
+        [VersionedRoute("Employees", Version, MinDate)]
         public List<EmployeeModel> GetEmployees()
         {
             var employees = EmployeeRepository.GetEmployees();
@@ -29,7 +30,8 @@
         }
 
         [HttpGet]
-        [VersionedRoute("", Version, MinDate, Name = "EmployeeByNameV2")]
+        [Route("v2/Employees")]
+        [VersionedRoute("Employees", Version, MinDate, Name = "EmployeeByNameV2")]
         public EmployeeModel GetEmployee(string firstName, string lastName)
         {
             var e = EmployeeRepository.GetEmployee(firstName, lastName);

@@ -7,14 +7,15 @@
     using System.Linq;
     using Versioning;
 
-    [RoutePrefix("api/Departments")]
+    [RoutePrefix("api")]
     public class DepartmentsV2Controller : ApiController
     {
         const int Version = 2;
         const int MinDate = 20160201;
 
         [HttpGet]
-        [VersionedRoute("", Version, MinDate)]
+        [Route("v2/Departments")]
+        [VersionedRoute("Departments", Version, MinDate)]
         public List<DepartmentModel> GetDepartments()
         {
             var departments = DepartmentRepository.Departments;
@@ -31,7 +32,8 @@
         }
 
         [HttpGet]
-        [VersionedRoute("{name}", Version, MinDate, Name = "DepartNameByNameV2")]
+        [Route("v2/Departments/{name}")]
+        [VersionedRoute("Departments/{name}", Version, MinDate, Name = "DepartNameByNameV2")]
         public DepartmentModel GetDepartment(string name)
         {
             var d = DepartmentRepository.GetDepartment(name);
@@ -47,7 +49,8 @@
         }
 
         [HttpGet]
-        [VersionedRoute("{departmentName}/employees", Version, MinDate)]
+        [Route("v2/Departments/{departmentName}/employees")]
+        [VersionedRoute("Departments/{departmentName}/employees", Version, MinDate)]
         public List<EmployeeModel> GetEmployees(string departmentName)
         {
             var employees = DepartmentRepository.GetEmployees(departmentName);
