@@ -75,7 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\Department\DepartmentsController.cs" />
+    <Compile Include="Controllers\Department\DepartmentsV2Controller.cs" />
+    <Compile Include="Controllers\Department\DepartmentsV1Controller.cs" />
     <Compile Include="Controllers\Employee\EmployeeV2Controller.cs" />
     <Compile Include="Controllers\Employee\EmployeeV1Controller.cs" />
     <Compile Include="Program.cs" />

@@ -10,8 +10,12 @@
     [RoutePrefix("api/Employees")]
     public class EmployeeV1Controller : ApiController
     {
+        const int Version = 1;
+        const int MinDate = 0;
+        const int MaxDate = 20160201;
+
         [HttpGet]
-        [VersionedRoute("", 1)]
+        [VersionedRoute("", Version, MinDate, MaxDate)]
         public List<EmployeeModel> GetEmployees()
         {
             var employees = EmployeeRepository.GetEmployees();
@@ -27,7 +31,7 @@
         }
 
         [HttpGet]
-        [VersionedRoute("", 1, Name = "EmployeeByNameV1")]
+        [VersionedRoute("", Version, MinDate, MaxDate, Name = "EmployeeByNameV1")]
         public EmployeeModel GetEmployee(string firstName, string lastName)
         {
             var e = EmployeeRepository.GetEmployee(firstName, lastName);

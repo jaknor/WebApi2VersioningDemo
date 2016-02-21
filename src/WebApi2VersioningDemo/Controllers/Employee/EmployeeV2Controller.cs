@@ -11,9 +11,10 @@
     public class EmployeeV2Controller : ApiController
     {
         const int Version = 2;
+        const int MinDate = 20160201;
 
         [HttpGet]
-        [VersionedRoute("", Version)]
+        [VersionedRoute("", Version, MinDate)]
         public List<EmployeeModel> GetEmployees()
         {
             var employees = EmployeeRepository.GetEmployees();
@@ -23,12 +24,12 @@
                     FirstName = e.FirstName,
                     LastName = e.LastName,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByNameV1", new { name = e.DepartmentName }) })
+                    DepartmentLink = Url.Link("DepartNameByNameV2", new { name = e.DepartmentName }) })
                     .ToList();
         }
 
         [HttpGet]
-        [VersionedRoute("", Version, Name = "EmployeeByNameV2")]
+        [VersionedRoute("", Version, MinDate, Name = "EmployeeByNameV2")]
         public EmployeeModel GetEmployee(string firstName, string lastName)
         {
             var e = EmployeeRepository.GetEmployee(firstName, lastName);
@@ -38,7 +39,7 @@
                     FirstName = e.FirstName,
                     LastName = e.LastName,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByNameV1", new { name = e.DepartmentName })
+                    DepartmentLink = Url.Link("DepartNameByNameV2", new { name = e.DepartmentName })
                 };
         }
     }

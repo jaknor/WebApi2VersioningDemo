@@ -8,10 +8,13 @@
     using Versioning;
 
     [RoutePrefix("api/Departments")]
-    public class DepartmentsController : ApiController
+    public class DepartmentsV2Controller : ApiController
     {
+        const int Version = 2;
+        const int MinDate = 20160201;
+
         [HttpGet]
-        [VersionedRoute("", 1)]
+        [VersionedRoute("", Version, MinDate)]
         public List<DepartmentModel> GetDepartments()
         {
             var departments = DepartmentRepository.Departments;
@@ -22,13 +25,13 @@
                     Name = d.Name,
                     Employees = d.Employees.Select(e => new DepartmentEmployee
                     {
-                        EmployeeLink = Url.Link("EmployeeByNameV1", new { firstName = e.FirstName, lastName = e.LastName })
+                        EmployeeLink = Url.Link("EmployeeByNameV2", new { firstName = e.FirstName, lastName = e.LastName })
                     }).ToList()
                 }).ToList();
         }
 
         [HttpGet]
-        [VersionedRoute("{name}", 1, Name = "DepartNameByNameV1")]
+        [VersionedRoute("{name}", Version, MinDate, Name = "DepartNameByNameV2")]
         public DepartmentModel GetDepartment(string name)
         {
             var d = DepartmentRepository.GetDepartment(name);
@@ -38,13 +41,13 @@
                 Name = d.Name,
                 Employees = d.Employees.Select(e => new DepartmentEmployee
                 {
-                    EmployeeLink = Url.Link("EmployeeByNameV1", new { firstName = e.FirstName, lastName = e.LastName })
+                    EmployeeLink = Url.Link("EmployeeByNameV2", new { firstName = e.FirstName, lastName = e.LastName })
                 }).ToList()
             };
         }
 
         [HttpGet]
-        [VersionedRoute("{departmentName}/employees", 1)]
+        [VersionedRoute("{departmentName}/employees", Version, MinDate)]
         public List<EmployeeModel> GetEmployees(string departmentName)
         {
             var employees = DepartmentRepository.GetEmployees(departmentName);
@@ -56,7 +59,7 @@
                     LastName = e.LastName,
                     Salary = e.Salary,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByNameV1", new { name = e.DepartmentName })
+                    DepartmentLink = Url.Link("DepartNameByNameV2", new { name = e.DepartmentName })
                 })
                     .ToList();
         }

@@ -5,13 +5,34 @@ namespace WebApi2VersioningDemo.Versioning
 {
     internal class VersionedRoute : RouteFactoryAttribute
     {
-        public VersionedRoute(string template, int allowedVersion)
+        public VersionedRoute(string template, int allowedVersion, int startDate)
             : base(template)
         {
             AllowedVersion = allowedVersion;
+            StartDate = startDate;
+        }
+
+        public VersionedRoute(string template, int allowedVersion, int startDate, int endDate)
+    : base(template)
+        {
+            AllowedVersion = allowedVersion;
+            StartDate = startDate;
+            EndDate = endDate;
         }
 
         public int AllowedVersion
+        {
+            get;
+            private set;
+        }
+
+        public int StartDate
+        {
+            get;
+            private set;
+        }
+
+        public int? EndDate
         {
             get;
             private set;
@@ -22,7 +43,7 @@ namespace WebApi2VersioningDemo.Versioning
             get
             {
                 var constraints = new HttpRouteValueDictionary();
-                constraints.Add("v", new VersionConstraint(AllowedVersion));
+                constraints.Add("v", new VersionConstraint(AllowedVersion, StartDate, EndDate));
                 return constraints;
             }
         }
