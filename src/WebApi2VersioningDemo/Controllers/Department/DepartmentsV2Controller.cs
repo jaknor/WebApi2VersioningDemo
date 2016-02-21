@@ -25,7 +25,7 @@
                     Name = d.Name,
                     Employees = d.Employees.Select(e => new DepartmentEmployee
                     {
-                        EmployeeLink = Url.Link("EmployeeByNameV2", new { firstName = e.FirstName, lastName = e.LastName })
+                        EmployeeLink = UrlHelperExtension.Link(Request, "EmployeeByName", Version, new { firstName = e.FirstName, lastName = e.LastName })
                     }).ToList()
                 }).ToList();
         }
@@ -41,7 +41,7 @@
                 Name = d.Name,
                 Employees = d.Employees.Select(e => new DepartmentEmployee
                 {
-                    EmployeeLink = Url.Link("EmployeeByNameV2", new { firstName = e.FirstName, lastName = e.LastName })
+                    EmployeeLink = UrlHelperExtension.Link(Request, "EmployeeByName", Version, new { firstName = e.FirstName, lastName = e.LastName })
                 }).ToList()
             };
         }
@@ -59,7 +59,7 @@
                     LastName = e.LastName,
                     Salary = e.Salary,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByNameV2", new { name = e.DepartmentName })
+                    DepartmentLink = UrlHelperExtension.Link(Request, "DepartNameByName", Version, new { name = e.DepartmentName })
                 })
                     .ToList();
         }

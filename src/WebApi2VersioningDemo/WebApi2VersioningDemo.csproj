@@ -82,6 +82,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Versioning\UrlHelperExtension.cs" />
     <Compile Include="Versioning\VersionConstraint.cs" />
     <Compile Include="Versioning\VersionRoute.cs" />
   </ItemGroup>

@@ -26,13 +26,13 @@
                     Name = d.Name,
                     Employees = d.Employees.Select(e => new DepartmentEmployee
                     {
-                        EmployeeLink = Url.Link("EmployeeByNameV1", new { firstName = e.FirstName, lastName = e.LastName })
+                        EmployeeLink = UrlHelperExtension.Link(Request, "EmployeeByName", Version, new { firstName = e.FirstName, lastName = e.LastName })
                     }).ToList()
                 }).ToList();
         }
 
         [HttpGet]
-        [VersionedRoute("{name}", Version, MinDate, MaxDate, Name = "DepartNameByNameV1")]
+        [VersionedRoute("{name}", Version, MinDate, MaxDate, "DepartNameByName")]
         public DepartmentModel GetDepartment(string name)
         {
             var d = DepartmentRepository.GetDepartment(name);
@@ -42,7 +42,7 @@
                 Name = d.Name,
                 Employees = d.Employees.Select(e => new DepartmentEmployee
                 {
-                    EmployeeLink = Url.Link("EmployeeByNameV1", new { firstName = e.FirstName, lastName = e.LastName })
+                    EmployeeLink = UrlHelperExtension.Link(Request, "EmployeeByName", Version, new { firstName = e.FirstName, lastName = e.LastName })
                 }).ToList()
             };
         }
@@ -60,7 +60,7 @@
                     LastName = e.LastName,
                     Salary = e.Salary,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByNameV1", new { name = e.DepartmentName })
+                    DepartmentLink = UrlHelperExtension.Link(Request, "DepartNameByName", Version, new { name = e.DepartmentName })
                 })
                     .ToList();
         }

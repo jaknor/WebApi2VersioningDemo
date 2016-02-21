@@ -24,12 +24,12 @@
                     FirstName = e.FirstName,
                     LastName = e.LastName,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByNameV2", new { name = e.DepartmentName }) })
+                    DepartmentLink = UrlHelperExtension.Link(Request, "DepartNameByName", Version, new { name = e.DepartmentName }) })
                     .ToList();
         }
 
         [HttpGet]
-        [VersionedRoute("", Version, MinDate, Name = "EmployeeByNameV2")]
+        [VersionedRoute("", Version, MinDate, "EmployeeByName")]
         public EmployeeModel GetEmployee(string firstName, string lastName)
         {
             var e = EmployeeRepository.GetEmployee(firstName, lastName);
@@ -39,7 +39,7 @@
                     FirstName = e.FirstName,
                     LastName = e.LastName,
                     StartDate = e.StartDate,
-                    DepartmentLink = Url.Link("DepartNameByNameV2", new { name = e.DepartmentName })
+                    DepartmentLink = UrlHelperExtension.Link(Request, "DepartNameByName", Version, new { name = e.DepartmentName })
                 };
         }
     }
